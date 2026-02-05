@@ -5,46 +5,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Class 10 History Quiz</title>
     <style>
-        body { font-family: sans-serif; background: #f4f4f4; margin: 0; padding: 20px; display: flex; justify-content: center; }
+        body { font-family: sans-serif; background: #f4f4f4; margin: 0; padding: 10px; display: flex; justify-content: center; }
         #quiz-container { max-width: 700px; width: 100%; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
         .header { text-align: center; border-bottom: 2px solid #333; margin-bottom: 20px; }
-        #timer { font-size: 20px; font-weight: bold; color: red; text-align: right; position: sticky; top: 0; background: white; padding: 10px; }
+        #timer { font-size: 20px; font-weight: bold; color: red; text-align: right; position: sticky; top: 0; background: white; padding: 10px; z-index: 100; }
         .q-box { margin-bottom: 25px; padding: 15px; border: 1px solid #ddd; border-radius: 5px; background: #fafafa; }
         .option { display: block; width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ccc; border-radius: 5px; background: white; cursor: pointer; text-align: left; font-size: 16px; }
-        .option:hover { background: #f0f0f0; }
-        .correct { background: #27ae60 !important; color: white; border-color: #27ae60; }
-        .wrong { background: #e74c3c !important; color: white; border-color: #e74c3c; }
-        .disabled { pointer-events: none; opacity: 0.7; }
-        #result, #cert { display: none; text-align: center; }
-        #cert { border: 10px double #2c3e50; padding: 30px; margin-top: 20px; }
-        .btn { background: #2c3e50; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; margin-top: 10px; }
-        @media print { .no-print { display: none; } #cert { border: 5px solid #000; } }
+        .option:hover:not(.disabled) { background: #f0f0f0; }
+        .correct { background: #27ae60 !important; color: white !important; border-color: #27ae60 !important; }
+        .wrong { background: #e74c3c !important; color: white !important; border-color: #e74c3c !important; }
+        .disabled { pointer-events: none; opacity: 0.8; }
+        #result-screen { display: none; text-align: center; padding: 30px; border: 2px solid #2c3e50; border-radius: 10px; background: #fff; margin-top: 20px; }
+        #cert { display: none; border: 10px double #2c3e50; padding: 30px; margin-top: 20px; text-align: center; }
+        .btn { background: #2c3e50; color: white; padding: 12px 25px; border: none; border-radius: 5px; cursor: pointer; margin-top: 15px; font-size: 16px; }
+        @media print { .no-print { display: none; } #cert { border: 5px solid #000; position: absolute; top: 0; left: 0; width: 100%; } }
     </style>
 </head>
 <body>
 
 <div id="quiz-container">
     <div id="quiz-area">
-        <div class="header"><h2>यूरोप में राष्ट्रवाद का उदय</h2></div>
+        <div class="header"><h2>इतिहास: यूरोप में राष्ट्रवाद का उदय</h2></div>
         <div id="timer">समय: 30:00</div>
-        <div id="questions"></div>
+        <div id="questions-list"></div>
     </div>
 
-    <div id="result">
-        <h2>क्विज़ पूरा हुआ!</h2>
-        <p id="score-text" style="font-size: 20px; font-weight: bold;"></p>
-        <input type="text" id="uName" placeholder="अपना नाम लिखें" style="padding: 10px; width: 250px;"><br>
-        <button class="btn" onclick="generateCert()">सर्टिफिकेट देखें</button>
+    <div id="result-screen">
+        <h2 style="color: #27ae60;">परीक्षा पूर्ण हुई!</h2>
+        <div style="font-size: 24px; margin: 20px 0; font-weight: bold; color: #333;">
+            आपका स्कोर: <span id="final-score-val">0</span> / 40
+        </div>
+        <p>अपना नाम लिखकर सर्टिफिकेट डाउनलोड करें:</p>
+        <input type="text" id="uName" placeholder="यहाँ अपना नाम लिखें" style="padding: 12px; width: 80%; max-width: 300px; border: 1px solid #ccc; border-radius: 5px;"><br>
+        <button class="btn" onclick="generateCert()">सर्टिफिकेट जेनरेट करें</button>
     </div>
 
     <div id="cert">
-        <h1 style="margin:0; color: #b8860b;">CERTIFICATE</h1>
-        <p>प्रमाणित किया जाता है कि</p>
-        <h2 id="c-name" style="text-decoration: underline;"></h2>
-        <p>ने कक्षा 10 इतिहास क्विज़ में भाग लिया।</p>
-        <p>स्कोर: <strong id="c-score"></strong>/40 (<span id="c-per"></span>%)</p>
-        <p>तारीख: <span id="c-date"></span></p>
-        <button class="btn no-print" onclick="window.print()">Print / Save PDF</button>
+        <h1 style="margin:0; color: #b8860b; font-size: 40px;">CERTIFICATE</h1>
+        <p style="font-size: 18px; margin-top: 20px;">यह प्रमाणित किया जाता है कि</p>
+        <h2 id="c-name" style="font-size: 32px; border-bottom: 2px solid #333; display: inline-block; padding: 0 20px;"></h2>
+        <p style="font-size: 18px;">ने कक्षा 10 इतिहास (अध्याय-1) की ऑनलाइन परीक्षा सफलतापूर्वक पूर्ण की।</p>
+        <div style="background: #f9f9f9; padding: 15px; border-radius: 10px; margin: 20px 0;">
+            <p style="font-size: 20px; margin: 5px 0;">स्कोर: <strong id="c-score"></strong> / 40</p>
+            <p style="font-size: 20px; margin: 5px 0;">प्रतिशत: <strong id="c-per"></strong>%</p>
+        </div>
+        <p>दिनांक: <span id="c-date"></span></p>
+        <button class="btn no-print" onclick="window.print()">प्रिंट करें / PDF सेव करें</button>
     </div>
 </div>
 
@@ -92,50 +98,58 @@
         {q: "राष्ट्रवाद का मुख्य उद्देश्य क्या था?", o: ["एकता", "विभाजन", "युद्ध", "दमन"], a: 0}
     ];
 
-    let score = 0, count = 0, time = 1800;
-    const qDiv = document.getElementById('questions');
+    let score = 0, answered = 0, timeLeft = 1800;
+    const qList = document.getElementById('questions-list');
 
+    // Load Questions
     data.forEach((item, i) => {
         const div = document.createElement('div');
         div.className = 'q-box';
-        div.innerHTML = `<strong>${i+1}. ${item.q}</strong><div id="g-${i}">
-            ${item.o.map((opt, oi) => `<button class="option" onclick="check(${i},${oi})">${opt}</button>`).join('')}
+        div.innerHTML = `<strong>${i+1}. ${item.q}</strong><div id="group-${i}">
+            ${item.o.map((opt, oi) => `<button class="option" onclick="checkAnswer(${i},${oi})">${opt}</button>`).join('')}
         </div>`;
-        qDiv.appendChild(div);
+        qList.appendChild(div);
     });
 
-    function check(qi, oi) {
-        const buttons = document.getElementById(`g-${qi}`).getElementsByTagName('button');
-        if (oi === data[qi].a) { buttons[oi].classList.add('correct'); score++; }
-        else { buttons[oi].classList.add('wrong'); buttons[data[qi].a].classList.add('correct'); }
-        for (let b of buttons) b.classList.add('disabled');
-        count++; if (count === 40) end();
+    function checkAnswer(qIdx, optIdx) {
+        const btns = document.getElementById(`group-${qIdx}`).getElementsByTagName('button');
+        if (optIdx === data[qIdx].a) {
+            btns[optIdx].classList.add('correct');
+            score++;
+        } else {
+            btns[optIdx].classList.add('wrong');
+            btns[data[qIdx].a].classList.add('correct');
+        }
+        for (let b of btns) b.classList.add('disabled');
+        answered++;
+        if (answered === 40) showFinalResult();
     }
 
-    const timer = setInterval(() => {
-        time--;
-        let m = Math.floor(time/60), s = time%60;
+    const clock = setInterval(() => {
+        timeLeft--;
+        let m = Math.floor(timeLeft/60), s = timeLeft%60;
         document.getElementById('timer').innerText = `समय: ${m}:${s<10?'0'+s:s}`;
-        if (time <= 0) { clearInterval(timer); end(); }
+        if (timeLeft <= 0) { clearInterval(clock); showFinalResult(); }
     }, 1000);
 
-    function end() {
-        clearInterval(timer);
+    function showFinalResult() {
+        clearInterval(clock);
         document.getElementById('quiz-area').style.display = 'none';
-        document.getElementById('result').style.display = 'block';
-        document.getElementById('score-text').innerText = `आपका स्कोर: ${score} / 40`;
+        document.getElementById('result-screen').style.display = 'block';
+        document.getElementById('final-score-val').innerText = score;
     }
 
     function generateCert() {
         const name = document.getElementById('uName').value;
-        if (!name) return alert("नाम लिखें!");
-        document.getElementById('result').style.display = 'none';
+        if (!name) return alert("कृपया अपना नाम लिखें!");
+        document.getElementById('result-screen').style.display = 'none';
         document.getElementById('cert').style.display = 'block';
         document.getElementById('c-name').innerText = name;
         document.getElementById('c-score').innerText = score;
         document.getElementById('c-per').innerText = ((score/40)*100).toFixed(1);
-        document.getElementById('c-date').innerText = new Date().toLocaleDateString();
+        document.getElementById('c-date').innerText = new Date().toLocaleDateString('hi-IN');
     }
 </script>
 </body>
-</html>
+    </html>
+    
