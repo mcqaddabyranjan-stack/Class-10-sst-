@@ -3,153 +3,184 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Class 10 History Quiz</title>
+    <title>Class 10 History Quiz - यूरोप में राष्ट्रवाद</title>
     <style>
-        body { font-family: sans-serif; background: #f4f4f4; margin: 0; padding: 10px; display: flex; justify-content: center; }
-        #quiz-container { max-width: 700px; width: 100%; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-        .header { text-align: center; border-bottom: 2px solid #333; margin-bottom: 20px; }
-        #timer { font-size: 20px; font-weight: bold; color: red; text-align: right; position: sticky; top: 0; background: white; padding: 10px; z-index: 100; }
-        .q-box { margin-bottom: 25px; padding: 15px; border: 1px solid #ddd; border-radius: 5px; background: #fafafa; }
-        .option { display: block; width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ccc; border-radius: 5px; background: white; cursor: pointer; text-align: left; font-size: 16px; }
-        .option:hover:not(.disabled) { background: #f0f0f0; }
-        .correct { background: #27ae60 !important; color: white !important; border-color: #27ae60 !important; }
-        .wrong { background: #e74c3c !important; color: white !important; border-color: #e74c3c !important; }
-        .disabled { pointer-events: none; opacity: 0.8; }
-        #result-screen { display: none; text-align: center; padding: 30px; border: 2px solid #2c3e50; border-radius: 10px; background: #fff; margin-top: 20px; }
-        #cert { display: none; border: 10px double #2c3e50; padding: 30px; margin-top: 20px; text-align: center; }
-        .btn { background: #2c3e50; color: white; padding: 12px 25px; border: none; border-radius: 5px; cursor: pointer; margin-top: 15px; font-size: 16px; }
-        @media print { .no-print { display: none; } #cert { border: 5px solid #000; position: absolute; top: 0; left: 0; width: 100%; } }
+        :root {
+            --primary: #2c3e50;
+            --success: #27ae60;
+            --danger: #e74c3c;
+            --bg: #f4f7f6;
+        }
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg); margin: 0; padding: 10px; display: flex; justify-content: center; }
+        #main-wrapper { max-width: 800px; width: 100%; background: white; padding: 20px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
+        .header { text-align: center; border-bottom: 3px solid var(--primary); margin-bottom: 20px; padding-bottom: 10px; }
+        #timer { font-size: 1.4rem; font-weight: bold; color: var(--danger); text-align: center; position: sticky; top: 0; background: white; padding: 10px; z-index: 100; border: 2px solid var(--danger); border-radius: 10px; margin-bottom: 20px; }
+        .q-card { background: #fff; padding: 20px; margin-bottom: 20px; border-radius: 10px; border: 1px solid #ddd; border-left: 5px solid var(--primary); }
+        .q-text { font-size: 1.1rem; font-weight: bold; margin-bottom: 15px; display: block; }
+        .option { display: block; width: 100%; padding: 12px; margin: 8px 0; border: 2px solid #ddd; border-radius: 8px; background: white; cursor: pointer; font-size: 1rem; text-align: left; transition: 0.3s; }
+        .option:hover:not(.locked) { background-color: #f1f1f1; border-color: var(--primary); }
+        .correct { background-color: var(--success) !important; color: white !important; border-color: #1e8449 !important; }
+        .wrong { background-color: var(--danger) !important; color: white !important; border-color: #c0392b !important; }
+        .locked { pointer-events: none; }
+        .expl { display: none; margin-top: 10px; padding: 10px; background: #e8f4fd; border-radius: 5px; font-style: italic; color: #2c3e50; border-left: 3px solid #3498db; }
+        
+        #result-screen, #cert-box { display: none; text-align: center; padding: 30px; }
+        #cert-box { border: 15px double var(--primary); background: #fff; margin-top: 20px; padding: 40px; position: relative; }
+        .btn-action { background: var(--primary); color: white; padding: 15px 30px; border: none; border-radius: 8px; cursor: pointer; font-size: 1.1rem; margin-top: 20px; }
+
+        @media print {
+            body * { visibility: hidden; }
+            #cert-box, #cert-box * { visibility: visible; }
+            #cert-box { position: absolute; left: 0; top: 0; width: 100%; border: 5px solid #000; }
+            .no-print { display: none; }
+        }
     </style>
 </head>
 <body>
 
-<div id="quiz-container">
-    <div id="quiz-area">
-        <div class="header"><h2>इतिहास: यूरोप में राष्ट्रवाद का उदय</h2></div>
-        <div id="timer">समय: 30:00</div>
-        <div id="questions-list"></div>
+<div id="main-wrapper">
+    <div id="quiz-ui">
+        <div class="header">
+            <h2>इतिहास (SST) - अध्याय 1</h2>
+            <p>यूरोप में राष्ट्रवाद का उदय (40 MCQs)</p>
+        </div>
+        <div id="timer">समय शेष: 30:00</div>
+        <div id="questions-container"></div>
     </div>
 
     <div id="result-screen">
-        <h2 style="color: #27ae60;">परीक्षा पूर्ण हुई!</h2>
-        <div style="font-size: 24px; margin: 20px 0; font-weight: bold; color: #333;">
-            आपका स्कोर: <span id="final-score-val">0</span> / 40
+        <h2 style="color: var(--success);">क्विज़ संपन्न!</h2>
+        <p id="display-score" style="font-size: 1.8rem; font-weight: bold;"></p>
+        <div style="margin: 20px 0;">
+            <input type="text" id="userName" placeholder="सर्टिफिकेट के लिए नाम लिखें" style="padding: 12px; width: 280px; border-radius: 5px; border: 1px solid #ccc;"><br>
+            <button class="btn-action" onclick="showCert()">सर्टिफिकेट डाउनलोड करें</button>
         </div>
-        <p>अपना नाम लिखकर सर्टिफिकेट डाउनलोड करें:</p>
-        <input type="text" id="uName" placeholder="यहाँ अपना नाम लिखें" style="padding: 12px; width: 80%; max-width: 300px; border: 1px solid #ccc; border-radius: 5px;"><br>
-        <button class="btn" onclick="generateCert()">सर्टिफिकेट जेनरेट करें</button>
     </div>
 
-    <div id="cert">
-        <h1 style="margin:0; color: #b8860b; font-size: 40px;">CERTIFICATE</h1>
-        <p style="font-size: 18px; margin-top: 20px;">यह प्रमाणित किया जाता है कि</p>
-        <h2 id="c-name" style="font-size: 32px; border-bottom: 2px solid #333; display: inline-block; padding: 0 20px;"></h2>
-        <p style="font-size: 18px;">ने कक्षा 10 इतिहास (अध्याय-1) की ऑनलाइन परीक्षा सफलतापूर्वक पूर्ण की।</p>
-        <div style="background: #f9f9f9; padding: 15px; border-radius: 10px; margin: 20px 0;">
-            <p style="font-size: 20px; margin: 5px 0;">स्कोर: <strong id="c-score"></strong> / 40</p>
-            <p style="font-size: 20px; margin: 5px 0;">प्रतिशत: <strong id="c-per"></strong>%</p>
+    <div id="cert-box">
+        <h1 style="color: #b8860b; font-size: 3rem; margin: 0;">CERTIFICATE</h1>
+        <p style="font-size: 1.2rem;">प्रमाणित किया जाता है कि</p>
+        <h2 id="c-name" style="font-size: 2.5rem; text-decoration: underline; margin: 15px 0;"></h2>
+        <p style="font-size: 1.2rem;">ने "यूरोप में राष्ट्रवाद का उदय" की परीक्षा सफलतापूर्वक पूर्ण की।</p>
+        <div style="margin: 30px 0; font-size: 1.3rem;">
+            स्कोर: <strong id="c-score"></strong> / 40 | प्रतिशत: <strong id="c-pct"></strong>%
         </div>
         <p>दिनांक: <span id="c-date"></span></p>
-        <button class="btn no-print" onclick="window.print()">प्रिंट करें / PDF सेव करें</button>
+        <button class="btn-action no-print" onclick="window.print()">प्रिंट / PDF सेव करें</button>
     </div>
 </div>
 
 <script>
-    const data = [
-        {q: "यूरोप में राष्ट्रवाद का उदय किस शताब्दी में हुआ?", o: ["16वीं", "17वीं", "18वीं", "19वीं"], a: 3},
-        {q: "फ्रांसीसी क्रांति कब हुई?", o: ["1776", "1789", "1815", "1848"], a: 1},
-        {q: "‘ला पत्री’ शब्द का अर्थ क्या है?", o: ["मातृभूमि", "राजा", "सेना", "धर्म"], a: 0},
-        {q: "‘ला सिटोयें’ शब्द किसके लिए प्रयोग हुआ?", o: ["राजा", "नागरिक", "सैनिक", "किसान"], a: 1},
-        {q: "नेपोलियन कोड कब लागू हुआ?", o: ["1789", "1799", "1804", "1815"], a: 2},
-        {q: "वियना कांग्रेस कब आयोजित हुई?", o: ["1789", "1815", "1848", "1871"], a: 1},
-        {q: "वियना कांग्रेस का नेतृत्व किसने किया?", o: ["नेपोलियन", "मेटरनिख", "बिस्मार्क", "मैजिनी"], a: 1},
-        {q: "जर्मनी के एकीकरण का नेतृत्व किसने किया?", o: ["मैजिनी", "कावूर", "बिस्मार्क", "मेटरनिख"], a: 2},
-        {q: "इटली के एकीकरण से कौन जुड़ा था?", o: ["बिस्मार्क", "नेपोलियन", "मैजिनी", "मेटरनिख"], a: 2},
-        {q: "1848 की क्रांतियाँ किस वर्ग से जुड़ी थीं?", o: ["किसान", "मजदूर", "उदारवादी मध्यम वर्ग", "सैनिक"], a: 2},
-        {q: "जर्मन साम्राज्य की घोषणा कहाँ हुई?", o: ["बर्लिन", "वियना", "रोम", "वर्साय"], a: 3},
-        {q: "जर्मनी का एकीकरण कब पूरा हुआ?", o: ["1848", "1866", "1871", "1815"], a: 2},
-        {q: "इटली का एकीकरण कब पूरा हुआ?", o: ["1848", "1857", "1870", "1885"], a: 2},
-        {q: "रोम किस देश की राजधानी बना?", o: ["फ्रांस", "इटली", "जर्मनी", "ऑस्ट्रिया"], a: 1},
-        {q: "‘यंग इटली’ संगठन किसने बनाया?", o: ["कावूर", "बिस्मार्क", "मैजिनी", "नेपोलियन"], a: 2},
-        {q: "बिस्मार्क की नीति क्या कहलाती थी?", o: ["उदारवाद", "राष्ट्रवाद", "लौह और रक्त", "समाजवाद"], a: 2},
-        {q: "फ्रांस में गणराज्य की स्थापना कब हुई?", o: ["1792", "1789", "1804", "1815"], a: 0},
-        {q: "फ्रांसीसी राष्ट्र का प्रतीक कौन था?", o: ["मैरियन", "जर्मानिया", "भारत माता", "ब्रिटानिया"], a: 0},
-        {q: "जर्मन राष्ट्र का प्रतीक कौन था?", o: ["मैरियन", "जर्मानिया", "भारत माता", "ब्रिटानिया"], a: 1},
-        {q: "यूनानी स्वतंत्रता संग्राम कब शुरू हुआ?", o: ["1821", "1815", "1789", "1848"], a: 0},
-        {q: "राष्ट्रवाद का विरोध किसने किया?", o: ["उदारवादी", "रूढ़िवादी", "किसान", "मजदूर"], a: 1},
-        {q: "फ्रैंकफर्ट संसद किस देश से जुड़ी थी?", o: ["फ्रांस", "इटली", "जर्मनी", "ऑस्ट्रिया"], a: 2},
-        {q: "फ्रैंकफर्ट संसद कब बनी?", o: ["1815", "1848", "1871", "1789"], a: 1},
-        {q: "गैरीबाल्डी किस समूह के नेता थे?", o: ["किसान", "मजदूर", "रेड शर्ट्स", "सैनिक"], a: 2},
-        {q: "कावूर किस राज्य से संबंधित थे?", o: ["रोम", "सार्डीनिया-पिडमोंट", "सिसिली", "वेनिस"], a: 1},
-        {q: "नेपोलियन का राज्याभिषेक कब हुआ?", o: ["1799", "1804", "1815", "1821"], a: 1},
-        {q: "नेपोलियन कोड ने क्या समाप्त किया?", o: ["कर", "विशेषाधिकार", "सेना", "चर्च"], a: 1},
-        {q: "राष्ट्रवाद किस भावना पर आधारित है?", o: ["एकता", "दमन", "विभाजन", "साम्राज्यवाद"], a: 0},
-        {q: "19वीं सदी में राष्ट्रवाद का केंद्र कहाँ था?", o: ["यूरोप", "एशिया", "अफ्रीका", "अमेरिका"], a: 0},
-        {q: "राष्ट्रवाद का सबसे बड़ा परिणाम क्या था?", o: ["राष्ट्र-राज्यों का निर्माण", "दासता", "औद्योगिक पतन", "युद्ध का अंत"], a: 0},
-        {q: "फ्रांसीसी क्रांति का नारा क्या था?", o: ["स्वतंत्रता, समानता, बंधुत्व", "राजा और प्रजा", "शक्ति और सत्ता", "धर्म और राज्य"], a: 0},
-        {q: "‘जर्मेनिया’ किसका प्रतीक है?", o: ["फ्रांस", "जर्मनी", "इटली", "ग्रीस"], a: 1},
-        {q: "राष्ट्रवाद का संबंध किससे है?", o: ["साझा पहचान", "कर", "धर्म", "जाति"], a: 0},
-        {q: "उदारवाद किससे जुड़ा है?", o: ["स्वतंत्रता", "दमन", "निरंकुशता", "गुलामी"], a: 0},
-        {q: "राष्ट्रवाद ने किसे चुनौती दी?", o: ["सामंती व्यवस्था", "लोकतंत्र", "शिक्षा", "उद्योग"], a: 0},
-        {q: "फ्रांस में निरंकुश शासन का अंत किसने किया?", o: ["फ्रांसीसी क्रांति", "वियना कांग्रेस", "नेपोलियन", "बिस्मार्क"], a: 0},
-        {q: "राष्ट्रवाद का आधार क्या था?", o: ["साझा संस्कृति", "जाति", "रंग", "धर्म"], a: 0},
-        {q: "इटली के एकीकरण में अंतिम राज्य कौन सा जुड़ा?", o: ["सिसिली", "नेपल्स", "रोम", "वेनिस"], a: 2},
-        {q: "राष्ट्रवाद ने किसे कमजोर किया?", o: ["साम्राज्य", "लोकतंत्र", "शिक्षा", "उद्योग"], a: 0},
-        {q: "राष्ट्रवाद का मुख्य उद्देश्य क्या था?", o: ["एकता", "विभाजन", "युद्ध", "दमन"], a: 0}
+    const quizData = [
+        {q: "यूरोप में राष्ट्रवाद के उदय का मुख्य कारण क्या था?", o: ["औद्योगिकीकरण", "मध्यम वर्ग का उदय", "कृषि क्रांति", "धार्मिक सुधार"], a: 1, e: "मध्यम वर्ग के बढ़ने से राष्ट्रीय चेतना का विकास हुआ।"},
+        {q: "‘यंग इटली’ संगठन की स्थापना किसने की?", o: ["मैज़िनी", "बिस्मार्क", "नेपोलियन", "कैवूर"], a: 0, e: "मैज़िनी इटली के एकीकरण का बड़ा समर्थक था।"},
+        {q: "जर्मनी का एकीकरण किसके नेतृत्व में हुआ?", o: ["कैवूर", "बिस्मार्क", "हिटलर", "नेपोलियन"], a: 1, e: "बिस्मार्क ने ‘ब्लड एंड आयरन’ नीति अपनाई।"},
+        {q: "1848 की क्रांतियाँ मुख्य रूप से किसके द्वारा शुरू की गईं?", o: ["किसानों द्वारा", "छात्रों व मध्यम वर्ग द्वारा", "सैनिक द्वारा", "व्यापारियों द्वारा"], a: 1, e: "छात्रों और मध्यवर्ग ने सुधार की मांग की।"},
+        {q: "‘ब्लड एंड आयरन’ नीति किसकी थी?", o: ["मैज़िनी", "नेपोलियन", "कैवूर", "बिस्मार्क"], a: 3, e: "यह सैन्य शक्ति और औद्योगिक क्षमता पर आधारित नीति थी।"},
+        {q: "इटली का एकीकरण पूरा करवाने में किसका मुख्य योगदान था?", o: ["मैज़िनी", "कैवूर", "बिस्मार्क", "गैरीबाल्डी"], a: 1, e: "कैवूर ने कूटनीति से इटली को एकीकृत किया।"},
+        {q: "यूरोप में उदारवाद का मुख्य आदर्श क्या था?", o: ["पूर्ण राजतंत्र", "समान नागरिक अधिकार", "उपनिवेशवाद", "हथियारों का विस्तार"], a: 1, e: "उदारवाद नागरिक स्वतंत्रता और समानता पर आधारित था।"},
+        {q: "1815 का वियना सम्मेलन किसके नेतृत्व में हुआ?", o: ["मैटर्निक", "बिस्मार्क", "मैज़िनी", "नेपोलियन"], a: 0, e: "ऑस्ट्रिया के मैटर्निक ने सम्मेलन का नेतृत्व किया।"},
+        {q: "वियना सम्मेलन का मुख्य उद्देश्य था—", o: ["राष्ट्रवाद को बढ़ावा देना", "यूरोप में राजतंत्र पुनर्स्थापित करना", "लोकतंत्र की स्थापना", "युद्ध समाप्त करना"], a: 1, e: "सम्मेलन का लक्ष्य पुराने राजतंत्र को बहाल करना था।"},
+        {q: "किस क्रांति ने यूरोप में राष्ट्रवाद की भावना को सबसे पहले प्रेरित किया?", o: ["रूसी क्रांति", "फ्रांसीसी क्रांति", "जर्मन क्रांति", "औद्योगिक क्रांति"], a: 1, e: "फ्रांसीसी क्रांति ने स्वतंत्रता और राष्ट्रीय पहचान की भावना जगाई।"},
+        {q: "नेपोलियन की ‘सिविल कोड’ नीति का उद्देश्य था—", o: ["युद्ध बढ़ाना", "कानूनों में एकरूपता", "वर्ग व्यवस्था को मजबूत करना", "राजतंत्र लाना"], a: 1, e: "इसने संपत्ति, अनुबंध और नागरिक अधिकारों को परिभाषित किया।"},
+        {q: "जर्मनी का एकीकरण किस वर्ष पूरा हुआ?", o: ["1848", "1866", "1871", "1885"], a: 2, e: "1871 में जर्मन साम्राज्य की स्थापना हुई।"},
+        {q: "किस देश को ‘पैचवर्क स्टेट’ कहा जाता था?", o: ["फ्रांस", "इटली", "जर्मनी", "ऑस्ट्रिया-हंगरी"], a: 3, e: "विभिन्न जातियों का मिश्रण होने के कारण इसे ऐसा कहा गया।"},
+        {q: "किसने इटली के दक्षिणी भाग को मुक्त करवाया?", o: ["गैरीबाल्डी", "कैवूर", "मैज़िनी", "नेपोलियन"], a: 0, e: "गैरीबाल्डी ने ‘रेड शर्ट्स’ के साथ लड़ाई लड़ी।"},
+        {q: "राष्ट्रवाद का अर्थ है—", o: ["धर्म का प्रसार", "राष्ट्र के प्रति निष्ठा", "उपनिवेश विस्तार", "भाषा बदलना"], a: 1, e: "राष्ट्रवाद देश की एकता और पहचान को महत्व देता है।"},
+        {q: "फ्रांस में 1848 की क्रांति का परिणाम क्या हुआ?", o: ["राजतंत्र समाप्त", "गणतंत्र की स्थापना", "जर्मनी का एकीकरण", "वियना सम्मेलन"], a: 1, e: "1848 में दूसरा फ्रांसीसी गणतंत्र बना।"},
+        {q: "जर्मनी के एकीकरण के बाद राजा कौन बना?", o: ["विलियम I", "विलियम II", "फ्रेडरिक", "चार्ल्स"], a: 0, e: "विलियम I को जर्मन सम्राट घोषित किया गया।"},
+        {q: "फ्रांसीसी क्रांति का नारा क्या था?", o: ["स्वतंत्रता, समानता, बंधुत्व", "रक्त और लोहा", "सबके लिए भूमि", "राष्ट्रों की सभा"], a: 0, e: "यह नारा लोकतांत्रिक मूल्यों को दर्शाता है।"},
+        {q: "उदारवाद में ‘समान नागरिकता’ का अर्थ है—", o: ["सभी कार्य समान", "कानून के सामने समानता", "आर्थिक समानता", "शिक्षा समान"], a: 1, e: "सभी नागरिक एक ही कानून के अंतर्गत आते हैं।"},
+        {q: "किस घटना ने राष्ट्रवाद को कमजोर किया?", o: ["वियना सम्मेलन", "फ्रांसीसी क्रांति", "1848 की क्रांति", "इटली का एकीकरण"], a: 0, e: "वियना सम्मेलन ने पुराने राजतंत्र को बढ़ावा दिया।"},
+        {q: "‘रेड शर्ट्स’ सेना किससे जुड़ी है?", o: ["नेपोलियन", "गैरीबाल्डी", "कैवूर", "बिस्मार्क"], a: 1, e: "गैरीबाल्डी के सैनिकों को रेड शर्ट्स कहा जाता था।"},
+        {q: "राष्ट्रवाद का विकास किस वर्ग में सबसे तेजी से हुआ?", o: ["किसान वर्ग", "मध्यम वर्ग", "सैनिक वर्ग", "व्यापारिक वर्ग"], a: 1, e: "शिक्षित मध्यम वर्ग ने राष्ट्रवाद को दिशा दी।"},
+        {q: "फ्रांसीसी क्रांति ने किसे समाप्त किया?", o: ["धर्म", "राजतंत्र", "उद्योग", "शिक्षा"], a: 1, e: "क्रांति ने पूर्ण राजतंत्र का अंत किया।"},
+        {q: "राष्ट्र-राज्य की एक विशेषता क्या है?", o: ["एक राजा", "बाहरी नियंत्रण", "साझा पहचान", "बहु-धर्म"], a: 2, e: "राष्ट्र-राज्य साझा इतिहास, संस्कृति और भाषा पर आधारित होता है।"},
+        {q: "‘जोलवेरिन’ किससे संबंधित है?", o: ["सैन्य गठबंधन", "व्यापार संघ", "धार्मिक आंदोलन", "शिक्षा सुधार"], a: 1, e: "जर्मन राज्यों का व्यापारिक संघ था।"},
+        {q: "किस घटना से इटली का एकीकरण तेज हुआ?", o: ["फ्रांसीसी क्रांति", "नेपोलियन युद्ध", "1848 की क्रांति", "वियना सम्मेलन"], a: 1, e: "नेपोलियन ने अनेक सुधार लागू किए।"},
+        {q: "किस नेता को ‘इटली का मस्तिष्क’ कहा जाता है?", o: ["गैरीबाल्डी", "कैवूर", "मैज़िनी", "नेपोलियन"], a: 1, e: "कैवूर की कूटनीति से इटली एकीकृत हुआ।"},
+        {q: "राष्ट्रवाद में ‘प्रतीकों’ का क्या महत्व है?", o: ["युद्ध", "कर वसूली", "एकता और पहचान", "शासन परिवर्तन"], a: 2, e: "प्रतीक जनता में राष्ट्रीय भावना जगाते हैं।"},
+        {q: "1848 की क्रांति का एक परिणाम था—", o: ["जर्मनी का एकीकरण", "इटली का एकीकरण", "लोकतांत्रिक सुधार", "वियना सम्मेलन"], a: 2, e: "लोगों की मांग पर कई सुधार लागू हुए।"},
+        {q: "फ्रांस में किसने राष्ट्रवाद को मजबूत किया?", o: ["लुई बोनापार्ट", "नेपोलियन", "मैटर्निक", "कैवूर"], a: 1, e: "नेपोलियन ने राष्ट्रीय प्रशासनिक ढाँचा विकसित किया।"},
+        {q: "‘कंस्टीट्यूशनलिज़्म’ का मतलब है—", o: ["बिना कानून", "राजा की मनमानी", "संविधान आधारित शासन", "सेना का शासन"], a: 2, e: "इसमें शासन संविधान और नागरिक अधिकारों पर आधारित होता है।"},
+        {q: "किस घटना ने जर्मनी को एकीकृत होने का अवसर दिया?", o: ["फ्रांको-प्रशियन युद्ध", "रूस युद्ध", "1848 की क्रांति", "उपनिवेश आंदोलन"], a: 0, e: "युद्ध में जीत ने जर्मनी को मजबूत बनाया।"},
+        {q: "फ्रांसीसी क्रांति में कौन सा वर्ग सबसे अधिक सक्रिय था?", o: ["किसान", "मध्यम वर्ग", "सैनिक", "मजदूर"], a: 1, e: "मध्यम वर्ग ने समानता और स्वतंत्रता की मांग की।"},
+        {q: "इसे ‘इटली का हृदय’ कहा जाता है?", o: ["गैरीबाल्डी", "कैवूर", "मैज़िनी", "बिस्मार्क"], a: 0, e: "गैरीबाल्डी की वीरता और बलिदान के कारण।"},
+        {q: "बिस्मार्क किस देश से संबंधित था?", o: ["फ्रांस", "प्रशा", "ऑस्ट्रिया", "रूस"], a: 1, e: "प्रशा जर्मन एकीकरण का नेतृत्व करने वाला राज्य था।"},
+        {q: "‘राष्ट्र-राज्य’ की मुख्य विशेषता—", o: ["एक सामान्य शासन", "धर्म की एकता", "साझा संस्कृति", "उपनिवेशवाद"], a: 2, e: "साझा संस्कृति से राष्ट्र एकजुट होता है।"},
+        {q: "1848 की क्रांति किस मांग के लिए की गई थी?", o: ["युद्ध", "लोकतांत्रिक अधिकार", "उपनिवेश", "व्यापार"], a: 1, e: "जनता को स्वतंत्रता और अधिकार चाहिए थे।"},
+        {q: "इटली के पहले एकीकृत राष्ट्र का शासक कौन बना?", o: ["विक्टर इमैनुअल II", "कैवूर", "गैरीबाल्डी", "मैज़िनी"], a: 0, e: "विक्टर इमैनुअल II एकीकृत इटली का राजा बना।"},
+        {q: "राष्ट्रवाद के प्रसार में सबसे अधिक योगदान किसका था?", o: ["सैनिकों का", "मध्यम वर्ग का", "राजाओं का", "किसानों का"], a: 1, e: "मध्यम वर्ग सबसे जागरूक और शिक्षित था।"},
+        {q: "यूरोप में राष्ट्रवाद का उदय किस शताब्दी में प्रमुख रूप से दिखाई दिया?", o: ["15वीं", "16वीं", "18वीं", "19वीं"], a: 3, e: "19वीं शताब्दी में कई राष्ट्रवादी आंदोलन शुरू हुए।"}
     ];
 
-    let score = 0, answered = 0, timeLeft = 1800;
-    const qList = document.getElementById('questions-list');
+    let score = 0, answered = 0, secondsLeft = 1800;
+    let timerId;
 
-    // Load Questions
-    data.forEach((item, i) => {
-        const div = document.createElement('div');
-        div.className = 'q-box';
-        div.innerHTML = `<strong>${i+1}. ${item.q}</strong><div id="group-${i}">
-            ${item.o.map((opt, oi) => `<button class="option" onclick="checkAnswer(${i},${oi})">${opt}</button>`).join('')}
-        </div>`;
-        qList.appendChild(div);
-    });
+    function init() {
+        const container = document.getElementById('questions-container');
+        quizData.forEach((item, i) => {
+            const card = document.createElement('div');
+            card.className = 'q-card';
+            card.innerHTML = `
+                <span class="q-text">${i + 1}. ${item.q}</span>
+                <div id="group-${i}">
+                    ${item.o.map((opt, oi) => `<button class="option" onclick="check(${i}, ${oi})">${opt}</button>`).join('')}
+                </div>
+                <div id="expl-${i}" class="expl">व्याख्या: ${item.e}</div>
+            `;
+            container.appendChild(card);
+        });
+        startTimer();
+    }
 
-    function checkAnswer(qIdx, optIdx) {
-        const btns = document.getElementById(`group-${qIdx}`).getElementsByTagName('button');
-        if (optIdx === data[qIdx].a) {
-            btns[optIdx].classList.add('correct');
+    function check(qi, oi) {
+        const btns = document.getElementById(`group-${qi}`).getElementsByTagName('button');
+        const correct = quizData[qi].a;
+        if (oi === correct) {
+            btns[oi].classList.add('correct');
             score++;
         } else {
-            btns[optIdx].classList.add('wrong');
-            btns[data[qIdx].a].classList.add('correct');
+            btns[oi].classList.add('wrong');
+            btns[correct].classList.add('correct');
         }
-        for (let b of btns) b.classList.add('disabled');
+        document.getElementById(`expl-${qi}`).style.display = 'block';
+        for (let b of btns) b.classList.add('locked');
         answered++;
-        if (answered === 40) showFinalResult();
+        if (answered === 40) endQuiz();
     }
 
-    const clock = setInterval(() => {
-        timeLeft--;
-        let m = Math.floor(timeLeft/60), s = timeLeft%60;
-        document.getElementById('timer').innerText = `समय: ${m}:${s<10?'0'+s:s}`;
-        if (timeLeft <= 0) { clearInterval(clock); showFinalResult(); }
-    }, 1000);
+    function startTimer() {
+        timerId = setInterval(() => {
+            secondsLeft--;
+            let m = Math.floor(secondsLeft / 60);
+            let s = secondsLeft % 60;
+            document.getElementById('timer').innerText = `समय शेष: ${m}:${s < 10 ? '0' + s : s}`;
+            if (secondsLeft <= 0) endQuiz();
+        }, 1000);
+    }
 
-    function showFinalResult() {
-        clearInterval(clock);
-        document.getElementById('quiz-area').style.display = 'none';
+    function endQuiz() {
+        clearInterval(timerId);
+        document.getElementById('quiz-ui').style.display = 'none';
         document.getElementById('result-screen').style.display = 'block';
-        document.getElementById('final-score-val').innerText = score;
+        document.getElementById('display-score').innerText = `आपका स्कोर: ${score} / 40`;
     }
 
-    function generateCert() {
-        const name = document.getElementById('uName').value;
-        if (!name) return alert("कृपया अपना नाम लिखें!");
+    function showCert() {
+        const name = document.getElementById('userName').value;
+        if (!name) return alert("नाम लिखें!");
         document.getElementById('result-screen').style.display = 'none';
-        document.getElementById('cert').style.display = 'block';
+        document.getElementById('cert-box').style.display = 'block';
         document.getElementById('c-name').innerText = name;
         document.getElementById('c-score').innerText = score;
-        document.getElementById('c-per').innerText = ((score/40)*100).toFixed(1);
+        document.getElementById('c-pct').innerText = ((score / 40) * 100).toFixed(1);
         document.getElementById('c-date').innerText = new Date().toLocaleDateString('hi-IN');
     }
+
+    init();
 </script>
+
 </body>
-    </html>
-    
+            </html>
+            
