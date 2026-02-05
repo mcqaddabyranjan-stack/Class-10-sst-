@@ -3,293 +3,287 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Class 10 History Ch-1 Quiz</title>
-
+<title>Class 10 History Quiz - Nationalism in Europe</title>
 <style>
-body{font-family:Arial;background:#f4f7fb;padding:15px}
-.quiz-box{max-width:900px;margin:auto;background:#fff;padding:20px;border-radius:10px}
-h1{text-align:center}
-.question{margin-top:14px;font-weight:bold}
-.option{border:1px solid #ccc;padding:8px;margin:6px 0;border-radius:6px;cursor:pointer}
-.option:hover{background:#eef}
-.correct{background:#2ecc71;color:#fff}
-.wrong{background:#e74c3c;color:#fff}
-#result{display:none;margin-top:20px;font-size:20px;text-align:center}
+:root {
+--primary: #2c3e50;
+--success: #27ae60;
+--danger: #e74c3c;
+--bg: #f4f7f6;
+--white: #ffffff;
+}
+body {
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+background-color: var(--bg);
+margin: 0;
+padding: 10px;
+display: flex;
+justify-content: center;
+}
+#main-container {
+width: 100%;
+max-width: 800px;
+background: var(--white);
+padding: 20px;
+border-radius: 12px;
+box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+.header {
+text-align: center;
+border-bottom: 2px solid #eee;
+margin-bottom: 20px;
+padding-bottom: 10px;
+}
+#timer-box {
+position: sticky;
+top: 0;
+background: var(--white);
+padding: 10px;
+font-size: 1.2rem;
+font-weight: bold;
+color: var(--danger);
+text-align: right;
+border-bottom: 1px solid #ddd;
+z-index: 100;
+}
+.question-card {
+margin-bottom: 30px;
+padding: 15px;
+border: 1px solid #eee;
+border-radius: 8px;
+}
+.question-text {
+font-size: 1.1rem;
+font-weight: 600;
+margin-bottom: 15px;
+display: block;
+}
+.option {
+display: block;
+width: 100%;
+padding: 12px 15px;
+margin: 8px 0;
+border: 2px solid #ddd;
+border-radius: 6px;
+background: var(--white);
+cursor: pointer;
+text-align: left;
+font-size: 1rem;
+transition: all 0.2s;
+}
+.option:hover:not(.disabled) {
+background-color: #f9f9f9;
+border-color: var(--primary);
+}
+.correct {
+background-color: var(--success) !important;
+color: white !important;
+border-color: #1e8449 !important;
+}
+.wrong {
+background-color: var(--danger) !important;
+color: white !important;
+border-color: #c0392b !important;
+}
+.disabled {
+pointer-events: none;
+opacity: 0.8;
+}
+#result-screen {
+display: none;
+text-align: center;
+padding: 40px 20px;
+}
+#certificate-container {
+display: none;
+margin-top: 30px;
+padding: 40px;
+border: 10px double var(--primary);
+background: white;
+text-align: center;
+position: relative;
+}
+.input-group {
+margin: 20px 0;
+}
+input[type="text"] {
+padding: 10px;
+width: 250px;
+border: 1px solid #ccc;
+border-radius: 4px;
+}
+.btn {
+background: var(--primary);
+color: white;
+padding: 10px 20px;
+border: none;
+border-radius: 5px;
+cursor: pointer;
+font-size: 1rem;
+}
+.btn-print {
+margin-top: 20px;
+background: #27ae60;
+}
+@media print {
+body * { visibility: hidden; }
+#certificate-container, #certificate-container * { visibility: visible; }
+#certificate-container { position: absolute; left: 0; top: 0; width: 100%; border: 5px solid #000; }
+.btn-print { display: none; }
+}
 </style>
 </head>
-
 <body>
-<div class="quiz-box">
-<h1>Class 10 History – Chapter 1 MCQ Quiz</h1>
-
-<div id="quiz">
-
-<div class="question">1. आधुनिक राष्ट्रवाद का उदय सबसे पहले कहाँ हुआ?</div>
-<div class="option" data-correct="false">A. जर्मनी</div>
-<div class="option" data-correct="true">B. फ्रांस</div>
-<div class="option" data-correct="false">C. इटली</div>
-<div class="option" data-correct="false">D. रूस</div>
-
-<div class="question">2. फ्रांसीसी क्रांति कब हुई?</div>
-<div class="option" data-correct="true">A. 1789</div>
-<div class="option" data-correct="false">B. 1776</div>
-<div class="option" data-correct="false">C. 1815</div>
-<div class="option" data-correct="false">D. 1848</div>
-
-<div class="question">3. ‘ला पत्री’ का अर्थ क्या है?</div>
-<div class="option" data-correct="true">A. मातृभूमि</div>
-<div class="option" data-correct="false">B. राजा</div>
-<div class="option" data-correct="false">C. सेना</div>
-<div class="option" data-correct="false">D. धर्म</div>
-
-<div class="question">4. ‘ला सिटोयें’ शब्द किसके लिए प्रयोग हुआ?</div>
-<div class="option" data-correct="false">A. राजा</div>
-<div class="option" data-correct="true">B. नागरिक</div>
-<div class="option" data-correct="false">C. सैनिक</div>
-<div class="option" data-correct="false">D. किसान</div>
-
-<div class="question">5. नेपोलियन कोड कब लागू हुआ?</div>
-<div class="option" data-correct="true">A. 1804</div>
-<div class="option" data-correct="false">B. 1789</div>
-<div class="option" data-correct="false">C. 1815</div>
-<div class="option" data-correct="false">D. 1848</div>
-
-<div class="question">6. नेपोलियन का पतन कब हुआ?</div>
-<div class="option" data-correct="false">A. 1804</div>
-<div class="option" data-correct="false">B. 1810</div>
-<div class="option" data-correct="true">C. 1815</div>
-<div class="option" data-correct="false">D. 1821</div>
-
-<div class="question">7. वियना कांग्रेस कब आयोजित हुई?</div>
-<div class="option" data-correct="true">A. 1815</div>
-<div class="option" data-correct="false">B. 1789</div>
-<div class="option" data-correct="false">C. 1848</div>
-<div class="option" data-correct="false">D. 1871</div>
-
-<div class="question">8. वियना कांग्रेस का नेतृत्व किसने किया?</div>
-<div class="option" data-correct="false">A. नेपोलियन</div>
-<div class="option" data-correct="true">B. मेटरनिख</div>
-<div class="option" data-correct="false">C. बिस्मार्क</div>
-<div class="option" data-correct="false">D. मैजिनी</div>
-
-<div class="question">9. जर्मनी का एकीकरण किसके नेतृत्व में हुआ?</div>
-<div class="option" data-correct="true">A. ओटो वॉन बिस्मार्क</div>
-<div class="option" data-correct="false">B. नेपोलियन</div>
-<div class="option" data-correct="false">C. मैजिनी</div>
-<div class="option" data-correct="false">D. कावूर</div>
-
-<div class="question">10. इटली के एकीकरण में प्रमुख नेता कौन था?</div>
-<div class="option" data-correct="false">A. बिस्मार्क</div>
-<div class="option" data-correct="true">B. मैजिनी</div>
-<div class="option" data-correct="false">C. हिटलर</div>
-<div class="option" data-correct="false">D. मेटरनिख</div>
-
-<div class="question">11. इटली के एकीकरण का प्रमुख राज्य कौन सा था?</div>
-<div class="option" data-correct="true">A. सार्डिनिया-पिडमोंट</div>
-<div class="option" data-correct="false">B. रोम</div>
-<div class="option" data-correct="false">C. सिसिली</div>
-<div class="option" data-correct="false">D. वेनिस</div>
-
-<div class="question">12. जर्मन साम्राज्य की घोषणा कहाँ हुई?</div>
-<div class="option" data-correct="true">A. वर्साय के महल में</div>
-<div class="option" data-correct="false">B. बर्लिन में</div>
-<div class="option" data-correct="false">C. वियना में</div>
-<div class="option" data-correct="false">D. रोम में</div>
-
-<div class="question">13. जर्मनी का एकीकरण कब हुआ?</div>
-<div class="option" data-correct="false">A. 1848</div>
-<div class="option" data-correct="true">B. 1871</div>
-<div class="option" data-correct="false">C. 1815</div>
-<div class="option" data-correct="false">D. 1804</div>
-
-<div class="question">14. राष्ट्रवाद किस भावना पर आधारित है?</div>
-<div class="option" data-correct="true">A. एकता</div>
-<div class="option" data-correct="false">B. अलगाव</div>
-<div class="option" data-correct="false">C. दासता</div>
-<div class="option" data-correct="false">D. साम्राज्यवाद</div>
-
-<div class="question">15. 1848 की क्रांति कहाँ हुई?</div>
-<div class="option" data-correct="true">A. यूरोप</div>
-<div class="option" data-correct="false">B. एशिया</div>
-<div class="option" data-correct="false">C. अफ्रीका</div>
-<div class="option" data-correct="false">D. अमेरिका</div>
-
-<div class="question">16. मैजिनी किस देश से संबंधित थे?</div>
-<div class="option" data-correct="true">A. इटली</div>
-<div class="option" data-correct="false">B. फ्रांस</div>
-<div class="option" data-correct="false">C. जर्मनी</div>
-<div class="option" data-correct="false">D. इंग्लैंड</div>
-
-<div class="question">17. ‘यंग इटली’ संगठन किसने बनाया?</div>
-<div class="option" data-correct="true">A. मैजिनी</div>
-<div class="option" data-correct="false">B. कावूर</div>
-<div class="option" data-correct="false">C. बिस्मार्क</div>
-<div class="option" data-correct="false">D. नेपोलियन</div>
-
-<div class="question">18. यूनानी स्वतंत्रता संग्राम कब शुरू हुआ?</div>
-<div class="option" data-correct="true">A. 1821</div>
-<div class="option" data-correct="false">B. 1815</div>
-<div class="option" data-correct="false">C. 1789</div>
-<div class="option" data-correct="false">D. 1848</div>
-
-<div class="question">19. राष्ट्रवाद का विरोध किसने किया?</div>
-<div class="option" data-correct="true">A. रूढ़िवादी</div>
-<div class="option" data-correct="false">B. उदारवादी</div>
-<div class="option" data-correct="false">C. किसान</div>
-<div class="option" data-correct="false">D. मजदूर</div>
-
-<div class="question">20. फ्रांस में राष्ट्रवाद किस वर्ग से जुड़ा था?</div>
-<div class="option" data-correct="true">A. मध्यम वर्ग</div>
-<div class="option" data-correct="false">B. किसान</div>
-<div class="option" data-correct="false">C. राजा</div>
-<div class="option" data-correct="false">D. दास</div>
-
-<!-- 21–40 -->
-<div class="question">21. राष्ट्रवाद का संबंध किससे है?</div>
-<div class="option" data-correct="true">A. साझा पहचान</div>
-<div class="option" data-correct="false">B. जाति</div>
-<div class="option" data-correct="false">C. धर्म</div>
-<div class="option" data-correct="false">D. भाषा</div>
-
-<div class="question">22. इटली का एकीकरण पूरा हुआ?</div>
-<div class="option" data-correct="true">A. 1870</div>
-<div class="option" data-correct="false">B. 1848</div>
-<div class="option" data-correct="false">C. 1815</div>
-<div class="option" data-correct="false">D. 1804</div>
-
-<div class="question">23. जर्मनी का शासक कौन बना?</div>
-<div class="option" data-correct="true">A. कैसर विल्हेम I</div>
-<div class="option" data-correct="false">B. हिटलर</div>
-<div class="option" data-correct="false">C. नेपोलियन</div>
-<div class="option" data-correct="false">D. मेटरनिख</div>
-
-<div class="question">24. राष्ट्रवाद ने किसे चुनौती दी?</div>
-<div class="option" data-correct="true">A. सामंती व्यवस्था</div>
-<div class="option" data-correct="false">B. लोकतंत्र</div>
-<div class="option" data-correct="false">C. शिक्षा</div>
-<div class="option" data-correct="false">D. उद्योग</div>
-
-<div class="question">25. ‘फ्रैंकफर्ट संसद’ किससे जुड़ी है?</div>
-<div class="option" data-correct="true">A. जर्मनी</div>
-<div class="option" data-correct="false">B. फ्रांस</div>
-<div class="option" data-correct="false">C. इटली</div>
-<div class="option" data-correct="false">D. ग्रीस</div>
-
-<div class="question">26. फ्रैंकफर्ट संसद कब बनी?</div>
-<div class="option" data-correct="true">A. 1848</div>
-<div class="option" data-correct="false">B. 1815</div>
-<div class="option" data-correct="false">C. 1871</div>
-<div class="option" data-correct="false">D. 1789</div>
-
-<div class="question">27. नेपोलियन कोड ने क्या समाप्त किया?</div>
-<div class="option" data-correct="true">A. विशेषाधिकार</div>
-<div class="option" data-correct="false">B. कर</div>
-<div class="option" data-correct="false">C. सेना</div>
-<div class="option" data-correct="false">D. व्यापार</div>
-
-<div class="question">28. राष्ट्रवाद का प्रतीक क्या था?</div>
-<div class="option" data-correct="true">A. झंडा</div>
-<div class="option" data-correct="false">B. सिक्का</div>
-<div class="option" data-correct="false">C. हथियार</div>
-<div class="option" data-correct="false">D. ताज</div>
-
-<div class="question">29. फ्रांस का राष्ट्रीय झंडा कितने रंगों का है?</div>
-<div class="option" data-correct="true">A. तीन</div>
-<div class="option" data-correct="false">B. दो</div>
-<div class="option" data-correct="false">C. चार</div>
-<div class="option" data-correct="false">D. पाँच</div>
-
-<div class="question">30. ‘जर्मेनिया’ किसका प्रतीक है?</div>
-<div class="option" data-correct="true">A. जर्मनी</div>
-<div class="option" data-correct="false">B. फ्रांस</div>
-<div class="option" data-correct="false">C. इटली</div>
-<div class="option" data-correct="false">D. ग्रीस</div>
-
-<div class="question">31. ‘मारीआने’ किस देश का प्रतीक है?</div>
-<div class="option" data-correct="true">A. फ्रांस</div>
-<div class="option" data-correct="false">B. जर्मनी</div>
-<div class="option" data-correct="false">C. इटली</div>
-<div class="option" data-correct="false">D. स्पेन</div>
-
-<div class="question">32. राष्ट्रवाद का विकास किस सदी में हुआ?</div>
-<div class="option" data-correct="true">A. 19वीं</div>
-<div class="option" data-correct="false">B. 16वीं</div>
-<div class="option" data-correct="false">C. 15वीं</div>
-<div class="option" data-correct="false">D. 20वीं</div>
-
-<div class="question">33. उदारवाद किससे जुड़ा है?</div>
-<div class="option" data-correct="true">A. स्वतंत्रता</div>
-<div class="option" data-correct="false">B. दमन</div>
-<div class="option" data-correct="false">C. निरंकुशता</div>
-<div class="option" data-correct="false">D. गुलामी</div>
-
-<div class="question">34. राष्ट्रवाद का प्रभाव किस पर पड़ा?</div>
-<div class="option" data-correct="true">A. यूरोप</div>
-<div class="option" data-correct="false">B. केवल फ्रांस</div>
-<div class="option" data-correct="false">C. केवल जर्मनी</div>
-<div class="option" data-correct="false">D. केवल इटली</div>
-
-<div class="question">35. नेपोलियन किस देश से था?</div>
-<div class="option" data-correct="true">A. फ्रांस</div>
-<div class="option" data-correct="false">B. जर्मनी</div>
-<div class="option" data-correct="false">C. इटली</div>
-<div class="option" data-correct="false">D. स्पेन</div>
-
-<div class="question">36. राष्ट्रवाद का विरोध किसने किया?</div>
-<div class="option" data-correct="true">A. सामंती शासक</div>
-<div class="option" data-correct="false">B. किसान</div>
-<div class="option" data-correct="false">C. मजदूर</div>
-<div class="option" data-correct="false">D. विद्यार्थी</div>
-
-<div class="question">37. यूरोप में राष्ट्रवाद का आधार क्या था?</div>
-<div class="option" data-correct="true">A. साझा संस्कृति</div>
-<div class="option" data-correct="false">B. जाति</div>
-<div class="option" data-correct="false">C. धर्म</div>
-<div class="option" data-correct="false">D. रंग</div>
-
-<div class="question">38. राष्ट्रवाद से क्या बना?</div>
-<div class="option" data-correct="true">A. राष्ट्र-राज्य</div>
-<div class="option" data-correct="false">B. साम्राज्य</div>
-<div class="option" data-correct="false">C. उपनिवेश</div>
-<div class="option" data-correct="false">D. जनजाति</div>
-
-<div class="question">39. फ्रांसीसी क्रांति का नारा क्या था?</div>
-<div class="option" data-correct="true">A. स्वतंत्रता, समानता, बंधुत्व</div>
-<div class="option" data-correct="false">B. शक्ति और सत्ता</div>
-<div class="option" data-correct="false">C. धर्म और राज्य</div>
-<div class="option" data-correct="false">D. राजा और प्रजा</div>
-
-<div class="question">40. राष्ट्रवाद का मुख्य उद्देश्य क्या था?</div>
-<div class="option" data-correct="true">A. एकता</div>
-<div class="option" data-correct="false">B. विभाजन</div>
-<div class="option" data-correct="false">C. युद्ध</div>
-<div class="option" data-correct="false">D. दमन</div>
-
+<div id="main-container">
+<div id="quiz-ui">
+<div class="header">
+<h2>इतिहास क्विज़: यूरोप में राष्ट्रवाद का उदय</h2>
+</div>
+<div id="timer-box">समय: 30:00</div>
+<div id="questions-container"></div>
+</div>
+<div id="result-screen">
+    <h1>क्विज़ समाप्त!</h1>
+    <p id="final-score" style="font-size: 1.5rem; font-weight: bold;"></p>
+    <div class="input-group">
+        <input type="text" id="studentName" placeholder="अपना नाम लिखें">
+        <button class="btn" onclick="showCertificate()">प्रमाण पत्र प्राप्त करें</button>
+    </div>
+    
+    <div id="certificate-container">
+        <h1 style="color: #c3922e; font-size: 3rem; margin-bottom: 10px;">प्रमाण पत्र</h1>
+        <p style="font-size: 1.2rem;">यह प्रमाणित किया जाता है कि</p>
+        <h2 id="cert-name" style="font-size: 2.5rem; border-bottom: 2px solid #333; display: inline-block; min-width: 300px;"></h2>
+        <p style="font-size: 1.2rem; margin-top: 20px;">ने इतिहास की परीक्षा (यूरोप में राष्ट्रवाद का उदय) में</p>
+        <h3>स्कोर: <span id="cert-score"></span> / 40 (<span id="cert-percent"></span>%)</h3>
+        <p style="margin-top: 40px;">दिनांक: <span id="cert-date"></span></p>
+        <button class="btn btn-print" onclick="window.print()">Print Certificate</button>
+    </div>
 </div>
 
-<div id="result"></div>
 </div>
-
 <script>
-let score=0,attempted=0;
-document.querySelectorAll(".option").forEach(opt=>{
-  opt.addEventListener("click",()=>{
-    const box=opt.parentNode;
-    if(box.classList.contains("done")) return;
-    box.classList.add("done");
-    attempted++;
-    if(opt.dataset.correct==="true"){opt.classList.add("correct");score++}
-    else{
-      opt.classList.add("wrong");
-      box.querySelector('[data-correct="true"]').classList.add("correct");
-    }
-    if(attempted===40){
-      document.getElementById("result").style.display="block";
-      document.getElementById("result").innerHTML=`आपका स्कोर: <b>${score}/40</b>`;
-    }
-  });
-});
-</script>
+const questions = [
+{ q: "यूरोप में राष्ट्रवाद का उदय किस शताब्दी में हुआ?", o: ["16वीं", "17वीं", "18वीं", "19वीं"], a: 3 },
+{ q: "फ्रांसीसी क्रांति कब हुई?", o: ["1776", "1789", "1815", "1848"], a: 1 },
+{ q: "‘ला पत्री’ शब्द का अर्थ क्या है?", o: ["मातृभूमि", "राजा", "सेना", "धर्म"], a: 0 },
+{ q: "‘ला सिटोयें’ शब्द किसके लिए प्रयोग हुआ?", o: ["राजा", "नागरिक", "सैनिक", "किसान"], a: 1 },
+{ q: "नेपोलियन कोड कब लागू हुआ?", o: ["1789", "1799", "1804", "1815"], a: 2 },
+{ q: "वियना कांग्रेस कब आयोजित हुई?", o: ["1789", "1815", "1848", "1871"], a: 1 },
+{ q: "वियना कांग्रेस का नेतृत्व किसने किया?", o: ["नेपोलियन", "मेटरनिख", "बिस्मार्क", "मैजिनी"], a: 1 },
+{ q: "जर्मनी के एकीकरण का नेतृत्व किसने किया?", o: ["मैजिनी", "कावूर", "बिस्मार्क", "मेटरनिख"], a: 2 },
+{ q: "इटली के एकीकरण से कौन जुड़ा था?", o: ["बिस्मार्क", "नेपोलियन", "मैजिनी", "मेटरनिख"], a: 2 },
+{ q: "1848 की क्रांतियाँ किस वर्ग से जुड़ी थीं?", o: ["किसान", "मजदूर", "उदारवादी मध्यम वर्ग", "सैनिक"], a: 2 },
+{ q: "जर्मन साम्राज्य की घोषणा कहाँ हुई?", o: ["बर्लिन", "वियना", "रोम", "वर्साय"], a: 3 },
+{ q: "जर्मनी का एकीकरण कब पूरा हुआ?", o: ["1848", "1866", "1871", "1815"], a: 2 },
+{ q: "इटली का एकीकरण कब पूरा हुआ?", o: ["1848", "1857", "1870", "1885"], a: 2 },
+{ q: "रोम किस देश की राजधानी बना?", o: ["फ्रांस", "इटली", "जर्मनी", "ऑस्ट्रिया"], a: 1 },
+{ q: "‘यंग इटली’ संगठन किसने बनाया?", o: ["कावूर", "बिस्मार्क", "मैजिनी", "नेपोलियन"], a: 2 },
+{ q: "बिस्मार्क की नीति क्या कहलाती थी?", o: ["उदारवाद", "राष्ट्रवाद", "लौह और रक्त", "समाजवाद"], a: 2 },
+{ q: "फ्रांस में गणराज्य की स्थापना कब हुई?", o: ["1792", "1789", "1804", "1815"], a: 0 },
+{ q: "फ्रांसीसी राष्ट्र का प्रतीक कौन था?", o: ["मैरियन", "जर्मानिया", "भारत माता", "ब्रिटानिया"], a: 0 },
+{ q: "जर्मन राष्ट्र का प्रतीक कौन था?", o: ["मैरियन", "जर्मानिया", "भारत माता", "ब्रिटानिया"], a: 1 },
+{ q: "यूनानी स्वतंत्रता संग्राम कब शुरू हुआ?", o: ["1821", "1815", "1789", "1848"], a: 0 },
+{ q: "राष्ट्रवाद का विरोध किसने किया?", o: ["उदारवादी", "रूढ़िवादी", "किसान", "मजदूर"], a: 1 },
+{ q: "फ्रैंकफर्ट संसद किस देश से जुड़ी थी?", o: ["फ्रांस", "इटली", "जर्मनी", "ऑस्ट्रिया"], a: 2 },
+{ q: "फ्रैंकफर्ट संसद कब बनी?", o: ["1815", "1848", "1871", "1789"], a: 1 },
+{ q: "गैरीबाल्डी किस समूह के नेता थे?", o: ["किसान", "मजदूर", "रेड शर्ट्स", "सैनिक"], a: 2 },
+{ q: "कावूर किस राज्य से संबंधित थे?", o: ["रोम", "सार्डीनिया-पिडमोंट", "सिसिली", "वेनिस"], a: 1 },
+{ q: "नेपोलियन का राज्याभिषेक कब हुआ?", o: ["1799", "1804", "1815", "1821"], a: 1 },
+{ q: "नेपोलियन कोड ने क्या समाप्त किया?", o: ["कर", "विशेषाधिकार", "सेना", "चर्च"], a: 1 },
+{ q: "राष्ट्रवाद किस भावना पर आधारित है?", o: ["एकता", "दमन", "विभाजन", "साम्राज्यवाद"], a: 0 },
+{ q: "19वीं सदी में राष्ट्रवाद का केंद्र कहाँ था?", o: ["यूरोप", "एशिया", "अफ्रीका", "अमेरिका"], a: 0 },
+{ q: "राष्ट्रवाद का सबसे बड़ा परिणाम क्या था?", o: ["राष्ट्र-राज्यों का निर्माण", "दासता", "औद्योगिक पतन", "युद्ध का अंत"], a: 0 },
+{ q: "फ्रांसीसी क्रांति का नारा क्या था?", o: ["स्वतंत्रता, समानता, बंधुत्व", "राजा और प्रजा", "शक्ति और सत्ता", "धर्म और राज्य"], a: 0 },
+{ q: "‘जर्मेनिया’ किसका प्रतीक है?", o: ["फ्रांस", "जर्मनी", "इटली", "ग्रीस"], a: 1 },
+{ q: "राष्ट्रवाद का संबंध किससे है?", o: ["साझा पहचान", "कर", "धर्म", "जाति"], a: 0 },
+{ q: "उदारवाद किससे जुड़ा है?", o: ["स्वतंत्रता", "दमन", "निरंकुशता", "गुलामी"], a: 0 },
+{ q: "राष्ट्रवाद ने किसे चुनौती दी?", o: ["सामंती व्यवस्था", "लोकतंत्र", "शिक्षा", "उद्योग"], a: 0 },
+{ q: "फ्रांस में निरंकुश शासन का अंत किसने किया?", o: ["फ्रांसीसी क्रांति", "वियना कांग्रेस", "नेपोलियन", "बिस्मार्क"], a: 0 },
+{ q: "राष्ट्रवाद का आधार क्या था?", o: ["साझा संस्कृति", "जाति", "रंग", "धर्म"], a: 0 },
+{ q: "इटली के एकीकरण में अंतिम राज्य कौन सा जुड़ा?", o: ["सिसिली", "नेपल्स", "रोम", "वेनिस"], a: 2 },
+{ q: "राष्ट्रवाद ने किसे कमजोर किया?", o: ["साम्राज्य", "लोकतंत्र", "शिक्षा", "उद्योग"], a: 0 },
+{ q: "राष्ट्रवाद का मुख्य उद्देश्य क्या था?", o: ["एकता", "विभाजन", "युद्ध", "दमन"], a: 0 }
+];
+let score = 0;
+let questionsAnswered = 0;
+let timeLeft = 1800;
+let timerId;
 
+function initQuiz() {
+    const container = document.getElementById(&#39;questions-container&#39;);
+    questions.forEach((item, index) =&gt; {
+        const card = document.createElement(&#39;div&#39;);
+        card.className = &#39;question-card&#39;;
+        card.innerHTML = `
+            &lt;span class=&quot;question-text&quot;&gt;${index + 1}. ${item.q}&lt;/span&gt;
+            &lt;div id=&quot;qgroup-${index}&quot;&gt;
+                ${item.o.map((opt, i) =&gt; `
+                    &lt;button class=&quot;option&quot; onclick=&quot;handleSelect(${index}, ${i})&quot;&gt;${opt}&lt;/button&gt;
+                `).join(&#39;&#39;)}
+            &lt;/div&gt;
+        `;
+        container.appendChild(card);
+    });
+    startTimer();
+}
+
+function handleSelect(qIdx, sIdx) {
+    const group = document.getElementById(`qgroup-${qIdx}`);
+    const buttons = group.getElementsByClassName(&#39;option&#39;);
+    const correctIdx = questions[qIdx].a;
+
+    if (sIdx === correctIdx) {
+        buttons[sIdx].classList.add(&#39;correct&#39;);
+        score++;
+    } else {
+        buttons[sIdx].classList.add(&#39;wrong&#39;);
+        buttons[correctIdx].classList.add(&#39;correct&#39;);
+    }
+
+    Array.from(buttons).forEach(btn =&gt; btn.classList.add(&#39;disabled&#39;));
+    questionsAnswered++;
+
+    if (questionsAnswered === questions.length) {
+        endQuiz();
+    }
+}
+
+function startTimer() {
+    timerId = setInterval(() =&gt; {
+        timeLeft--;
+        let m = Math.floor(timeLeft / 60);
+        let s = timeLeft % 60;
+        document.getElementById(&#39;timer-box&#39;).innerText = `समय: ${m.toString().padStart(2, &#39;0&#39;)}:${s.toString().padStart(2, &#39;0&#39;)}`;
+        if (timeLeft &lt;= 0) {
+            clearInterval(timerId);
+            endQuiz();
+        }
+    }, 1000);
+}
+
+function endQuiz() {
+    clearInterval(timerId);
+    document.getElementById(&#39;quiz-ui&#39;).style.display = &#39;none&#39;;
+    document.getElementById(&#39;result-screen&#39;).style.display = &#39;block&#39;;
+    document.getElementById(&#39;final-score&#39;).innerText = `आपका कुल स्कोर: ${score} / 40`;
+}
+
+function showCertificate() {
+    const name = document.getElementById(&#39;studentName&#39;).value;
+    if (!name) {
+        alert(&quot;कृपया अपना नाम दर्ज करें&quot;);
+        return;
+    }
+    document.getElementById(&#39;cert-name&#39;).innerText = name;
+    document.getElementById(&#39;cert-score&#39;).innerText = score;
+    document.getElementById(&#39;cert-percent&#39;).innerText = ((score / 40) * 100).toFixed(1);
+    document.getElementById(&#39;cert-date&#39;).innerText = new Date().toLocaleDateString(&#39;hi-IN&#39;);
+    document.getElementById(&#39;certificate-container&#39;).style.display = &#39;block&#39;;
+}
+
+initQuiz();
+
+</script>
 </body>
-  </html>
+</html>
